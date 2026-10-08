@@ -1,4 +1,2 @@
 User-agent: *
-Allow: /
-
-Sitemap: https://holdudvarvendeghaz.hu/sitemap.xml
+Disallow: /

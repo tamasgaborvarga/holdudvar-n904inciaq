@@ -1,10 +1,14 @@
 /* ============================================================
-   HOLDUDVAR VENDÉGHÁZ — shared behaviour
+   HOLDUDVAR VENDÉGHÁZ — közös viselkedés
+   Nyelvváltás · fejléc · mobilmenü · feltárás · lightbox · mobil CTA-sáv ·
+   ajánlatkérő űrlap · térkép · vissza a tetejére
    ============================================================ */
 (function () {
   "use strict";
 
-  /* ---------- Language ---------- */
+  /* ---------- Nyelv ----------
+     A <head> egy apró inline szkripttel már beállította a data-lang-ot (nincs villanás);
+     itt a gombok állapota és a csak attribútumban élő (aria-label) feliratok frissülnek. */
   var STORE = "holdudvar_lang";
   function getLang() {
     try { return localStorage.getItem(STORE) || "hu"; } catch (e) { return "hu"; }
@@ -16,54 +20,41 @@
     document.querySelectorAll("[data-lang-btn]").forEach(function (b) {
       b.setAttribute("aria-pressed", b.getAttribute("data-lang-btn") === lang ? "true" : "false");
     });
-    // A gomb a CÉLNYELVET mutatja (magyar oldalon "EN"), így egyértelmű, mi történik kattintásra
-    var target = lang === "hu" ? "en" : "hu";
-    document.querySelectorAll("[data-lang-toggle]").forEach(function (t) {
-      t.textContent = target.toUpperCase();
-      t.setAttribute("lang", target);
-      t.setAttribute("aria-label", target === "en" ? "Switch to English" : "Váltás magyar nyelvre");
-    });
-    // A JS-ből létrehozott vezérlők feliratai is kövessék a nyelvet
     document.querySelectorAll("[data-i18n-label]").forEach(function (el) {
       var pair = el.getAttribute("data-i18n-label").split("|");
       el.setAttribute("aria-label", lang === "en" ? pair[1] : pair[0]);
     });
+    document.dispatchEvent(new CustomEvent("holdudvar:lang", { detail: lang }));
   }
   function t(hu, en) {
     return document.documentElement.getAttribute("data-lang") === "en" ? en : hu;
   }
-  // apply immediately to avoid flash
   document.documentElement.setAttribute("data-lang", getLang());
   document.documentElement.setAttribute("lang", getLang());
 
   document.addEventListener("DOMContentLoaded", function () {
-    setLang(getLang());
     document.querySelectorAll("[data-lang-btn]").forEach(function (b) {
       b.addEventListener("click", function () { setLang(b.getAttribute("data-lang-btn")); });
     });
-    document.querySelectorAll("[data-lang-toggle]").forEach(function (t) {
-      t.addEventListener("click", function () {
-        setLang(document.documentElement.getAttribute("data-lang") === "hu" ? "en" : "hu");
-      });
-    });
 
-    /* ---------- Sticky / over-hero nav ---------- */
+    /* ---------- Fejléc: a hero fölött átlátszó, görgetve tömör ---------- */
     var nav = document.querySelector(".nav");
     var overHero = nav && nav.hasAttribute("data-over-hero");
-    function onScroll() {
-      if (!nav) return;
-      var scrolled = window.scrollY > 40;
-      if (overHero) {
+    if (overHero) {
+      var navTick = false;
+      var navUpdate = function () {
+        var scrolled = window.scrollY > 40;
         nav.classList.toggle("nav--over", !scrolled);
         nav.classList.toggle("nav--solid", scrolled);
-      } else {
-        nav.classList.add("nav--solid");
-      }
+        navTick = false;
+      };
+      navUpdate();
+      window.addEventListener("scroll", function () {
+        if (!navTick) { navTick = true; requestAnimationFrame(navUpdate); }
+      }, { passive: true });
     }
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
 
-    /* ---------- Mobile menu ---------- */
+    /* ---------- Mobilmenü ---------- */
     var burger = document.querySelector(".burger");
     var menu = document.querySelector(".mobile-menu");
     function closeMenu() {
@@ -74,7 +65,6 @@
       if (burger) { burger.setAttribute("aria-expanded", "false"); burger.focus(); }
     }
     function openMenu() {
-      if (!menu) return;
       menu.classList.add("open");
       menu.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
@@ -87,80 +77,100 @@
       menu.querySelectorAll("[data-close], a").forEach(function (el) {
         el.addEventListener("click", closeMenu);
       });
-      // Escape zárja, és a fókusz ne szökjön ki a nyitott menüből
+      // Escape zárja, és a fókusz nem szökik ki a nyitott menüből
       document.addEventListener("keydown", function (e) {
         if (!menu.classList.contains("open")) return;
         if (e.key === "Escape") { e.preventDefault(); closeMenu(); return; }
         if (e.key !== "Tab") return;
         var f = menu.querySelectorAll("a, button");
-        if (!f.length) return;
         var first = f[0], last = f[f.length - 1];
         if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       });
+      // asztali szélességre váltva a nyitott menü bezárul
+      window.matchMedia("(min-width: 1100px)").addEventListener("change", function (m) { if (m.matches) closeMenu(); });
     }
-    // language buttons inside mobile menu already wired by [data-lang-btn]
 
-    /* ---------- Reveal on scroll ---------- */
+    /* ---------- Feltárás görgetéskor ---------- */
     var reveals = document.querySelectorAll(".reveal");
     if ("IntersectionObserver" in window && reveals.length) {
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
           if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
         });
-      }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+      }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
       reveals.forEach(function (r) { io.observe(r); });
     } else {
       reveals.forEach(function (r) { r.classList.add("in"); });
     }
 
-    /* ---------- Lightbox (gallery) ---------- */
+    /* ---------- Lightbox (galéria) ----------
+       Billentyűzet: ←/→ lapoz, Esc zár, Tab a panelen belül marad.
+       Érintés: vízszintes legyintés lapoz. A felirat az aktív nyelvet követi
+       (data-label = magyar, data-label-en = angol). */
     var items = Array.prototype.slice.call(document.querySelectorAll("[data-lightbox]"));
     if (items.length) {
+      var icon = function (d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>'; };
       var lb = document.createElement("div");
       lb.className = "lightbox";
       lb.setAttribute("role", "dialog");
       lb.setAttribute("aria-modal", "true");
+      lb.setAttribute("aria-hidden", "true");
       lb.innerHTML =
-        '<button class="lightbox__close" type="button" data-i18n-label="Bezárás|Close">✕</button>' +
-        '<button class="lightbox__nav lightbox__nav--prev" type="button" data-i18n-label="Előző kép|Previous image">‹</button>' +
-        '<button class="lightbox__nav lightbox__nav--next" type="button" data-i18n-label="Következő kép|Next image">›</button>' +
-        '<div class="lightbox__stage"><img class="lightbox__img" alt="" decoding="async"><span class="lightbox__caption"></span></div>';
+        '<button class="lightbox__close" type="button" data-i18n-label="Bezárás|Close" aria-label="Bezárás">' + icon("M6 6l12 12M18 6 6 18") + '</button>' +
+        '<button class="lightbox__nav lightbox__nav--prev" type="button" data-i18n-label="Előző kép|Previous image" aria-label="Előző kép">' + icon("M15 18l-6-6 6-6") + '</button>' +
+        '<button class="lightbox__nav lightbox__nav--next" type="button" data-i18n-label="Következő kép|Next image" aria-label="Következő kép">' + icon("M9 18l6-6-6-6") + '</button>' +
+        '<div class="lightbox__stage"><img class="lightbox__img" alt="" decoding="async"></div>' +
+        '<p class="lightbox__caption" aria-live="polite"></p>';
       document.body.appendChild(lb);
       var stageImg = lb.querySelector(".lightbox__img");
       var cap = lb.querySelector(".lightbox__caption");
       var closeBtn = lb.querySelector(".lightbox__close");
       var idx = 0;
       var lastFocus = null;
-      function show(i) {
+      var labelOf = function (el) {
+        var hu = el.getAttribute("data-label") || "";
+        return t(hu, el.getAttribute("data-label-en") || hu);
+      };
+      var srcOf = function (el) {
+        return el.getAttribute("data-full") || (el.querySelector("img") && el.querySelector("img").src) || "";
+      };
+      var show = function (i) {
         idx = (i + items.length) % items.length;
         var el = items[idx];
-        var label = el.getAttribute("data-label") || "";
-        var full = el.getAttribute("data-full") || (el.querySelector("img") && el.querySelector("img").src) || "";
-        stageImg.src = full;
+        var label = labelOf(el);
+        var src = srcOf(el);
+        if (stageImg.getAttribute("src") !== src) {
+          stageImg.classList.add("is-loading");
+          stageImg.onload = function () { stageImg.classList.remove("is-loading"); };
+          stageImg.src = src;
+        }
         stageImg.alt = label;
         cap.textContent = (idx + 1) + " / " + items.length + (label ? "  ·  " + label : "");
         lb.setAttribute("aria-label", label || t("Képnagyító", "Image viewer"));
-      }
-      function open(i) {
+        // a szomszédos képek előtöltése, hogy a lapozás azonnali legyen
+        [idx + 1, idx - 1].forEach(function (j) { new Image().src = srcOf(items[(j + items.length) % items.length]); });
+      };
+      var open = function (i) {
         lastFocus = document.activeElement;
         show(i);
         lb.classList.add("open");
+        lb.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
         closeBtn.focus();
-      }
-      function close() {
+      };
+      var close = function () {
         lb.classList.remove("open");
+        lb.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
         if (lastFocus && lastFocus.focus) lastFocus.focus();
-      }
+      };
       // A galéria-elemek <div>-ek: gombbá tesszük őket, hogy billentyűzettel is elérhetők legyenek
       items.forEach(function (el, i) {
-        el.style.cursor = "pointer";
         if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "0");
         if (!el.getAttribute("role")) el.setAttribute("role", "button");
-        var lbl = el.getAttribute("data-label");
-        if (lbl && !el.getAttribute("aria-label")) el.setAttribute("aria-label", lbl + " — nagy nézet");
+        var hu = el.getAttribute("data-label");
+        if (hu) el.setAttribute("data-i18n-label", hu + " — nagy nézet|" + (el.getAttribute("data-label-en") || hu) + " — enlarge");
         el.addEventListener("click", function () { open(i); });
         el.addEventListener("keydown", function (e) {
           if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") { e.preventDefault(); open(i); }
@@ -170,6 +180,14 @@
       lb.querySelector(".lightbox__nav--prev").addEventListener("click", function () { show(idx - 1); });
       lb.querySelector(".lightbox__nav--next").addEventListener("click", function () { show(idx + 1); });
       lb.addEventListener("click", function (e) { if (e.target === lb || e.target.classList.contains("lightbox__stage")) close(); });
+      var tx = null, ty = null;
+      lb.addEventListener("touchstart", function (e) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+      lb.addEventListener("touchend", function (e) {
+        if (tx === null) return;
+        var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) show(idx + (dx < 0 ? 1 : -1));
+        tx = ty = null;
+      }, { passive: true });
       document.addEventListener("keydown", function (e) {
         if (!lb.classList.contains("open")) return;
         if (e.key === "Escape") { close(); return; }
@@ -181,30 +199,67 @@
         if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       });
+      document.addEventListener("holdudvar:lang", function () { if (lb.classList.contains("open")) show(idx); });
     }
 
-    /* ---------- Hero parallax (home) ---------- */
-    var px = document.querySelector(".ph--parallax");
-    if (px && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      var heroEl = px.closest(".page-hero");
-      var pxTicking = false;
-      function pxUpdate() {
-        var h = heroEl ? heroEl.offsetHeight : window.innerHeight;
-        var y = Math.min(window.scrollY, h);
-        px.style.transform = "translate3d(0," + (y * 0.22) + "px,0)";
-        pxTicking = false;
+    /* ---------- Mobil CTA-sáv (alul) ----------
+       Telefonon mindig kéznél az Ajánlatkérés és a hívás. A kezdőlapon csak akkor jelenik
+       meg, amikor a hero saját gombjai már kigördültek; az ajánlatkérő oldalon nincs rá szükség. */
+    if (!document.querySelector("[data-booking-form]")) {
+      var bar = document.createElement("div");
+      var ctaHref = (document.querySelector(".nav__cta") || { getAttribute: function () { return "foglalas.html"; } }).getAttribute("href");
+      bar.className = "cta-bar";
+      bar.innerHTML =
+        '<a class="cta-bar__tel" href="tel:+36202589544" data-i18n-label="Hívás: +36 20 258 9544|Call +36 20 258 9544" aria-label="Hívás: +36 20 258 9544">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.98.36 1.94.7 2.86a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.22-1.22a2 2 0 0 1 2.11-.45c.92.34 1.88.57 2.86.7A2 2 0 0 1 22 16.92z"/></svg></a>' +
+        '<a class="btn" href="' + ctaHref + '"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Request a quote</span> <span class="ar" aria-hidden="true">→</span></a>';
+      document.body.appendChild(bar);
+      document.body.classList.add("has-cta-bar");
+      var heroCta = document.querySelector("[data-hero-cta]");
+      if (heroCta && "IntersectionObserver" in window) {
+        new IntersectionObserver(function (en) {
+          bar.classList.toggle("show", !en[0].isIntersecting && en[0].boundingClientRect.top < 0);
+        }).observe(heroCta);
+      } else {
+        bar.classList.add("show");
       }
-      window.addEventListener("scroll", function () {
-        if (!pxTicking) { window.requestAnimationFrame(pxUpdate); pxTicking = true; }
-      }, { passive: true });
-      pxUpdate();
     }
 
-    // A többi IIFE (to-top, galéria-pöttyök) is DOMContentLoaded-re épít; egy rAF után
-    // már léteznek, ekkor kapják meg a nyelvhelyes aria-label-t.
-    requestAnimationFrame(function () { setLang(getLang()); });
+    /* ---------- Vissza a tetejére (asztali nézet) ---------- */
+    var toTop = document.createElement("button");
+    toTop.type = "button";
+    toTop.className = "to-top";
+    toTop.setAttribute("data-i18n-label", "Vissza a tetejére|Back to top");
+    toTop.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>';
+    toTop.addEventListener("click", function () { window.scrollTo({ top: 0 }); });
+    document.body.appendChild(toTop);
+    var topTick = false;
+    window.addEventListener("scroll", function () {
+      if (topTick) return;
+      topTick = true;
+      requestAnimationFrame(function () { toTop.classList.toggle("show", window.scrollY > 900); topTick = false; });
+    }, { passive: true });
 
-    /* ---------- Booking form ----------
+    /* ---------- Kattintásra betöltő Google Térkép (nincs 3rd-party süti kattintás előtt) ---------- */
+    var mapBox = document.querySelector("[data-map-consent]");
+    var mapBtn = mapBox && mapBox.querySelector("[data-map-load]");
+    if (mapBtn) {
+      mapBtn.addEventListener("click", function () {
+        var src = mapBox.getAttribute("data-map-src");
+        if (!src) return;
+        var iframe = document.createElement("iframe");
+        iframe.setAttribute("title", mapBox.getAttribute("data-map-title") || "");
+        iframe.setAttribute("src", src);
+        iframe.setAttribute("loading", "lazy");
+        iframe.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
+        iframe.setAttribute("allowfullscreen", "");
+        iframe.setAttribute("tabindex", "0");
+        mapBox.replaceWith(iframe);
+        iframe.focus();
+      });
+    }
+
+    /* ---------- Ajánlatkérő űrlap ----------
        Web3Forms AJAX, ha a WEB3FORMS_KEY ki van töltve (https://web3forms.com —
        ingyenes, e-mailre továbbít). Üres kulcs esetén előre kitöltött mailto:
        nyílik a vendég levelezőjében. Így mindig van valódi továbbítás. */
@@ -212,8 +267,7 @@
     var BOOKING_EMAIL = "holdudvartiszato@gmail.com";
     var form = document.querySelector("[data-booking-form]");
     if (form) {
-      /* Dátumlogika: múltbeli érkezés nem választható, és a távozás nem lehet
-         korábbi az érkezésnél — a natív mezők min attribútumaival. */
+      // Múltbeli érkezés nem választható, a távozás nem lehet korábbi az érkezésnél
       var fromEl = form.querySelector('[name="from"]');
       var toEl = form.querySelector('[name="to"]');
       if (fromEl && toEl) {
@@ -283,95 +337,8 @@
         }
       });
     }
-  });
-})();
 
-/* Kattintásra betöltő Google Térkép (GDPR — nincs 3rd-party süti kattintás előtt) */
-(function () {
-  document.addEventListener("DOMContentLoaded", function () {
-    var box = document.querySelector("[data-map-consent]");
-    if (!box) return;
-    var btn = box.querySelector("[data-map-load]");
-    if (!btn) return;
-    btn.addEventListener("click", function () {
-      var src = box.getAttribute("data-map-src");
-      var title = box.getAttribute("data-map-title") || "";
-      if (!src) return;
-      var iframe = document.createElement("iframe");
-      iframe.setAttribute("title", title);
-      iframe.setAttribute("src", src);
-      iframe.setAttribute("loading", "lazy");
-      iframe.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
-      iframe.setAttribute("allowfullscreen", "");
-      box.replaceWith(iframe);
-      // A gomb eltűnt a fókusz alól — adjuk át a fókuszt a betöltött térképnek
-      iframe.setAttribute("tabindex", "0");
-      iframe.focus();
-    });
-  });
-})();
-
-/* Galéria: telefonon full-bleed carousel — pötty-indikátor + scroll-szinkron */
-(function () {
-  document.addEventListener("DOMContentLoaded", function () {
-    var galleries = document.querySelectorAll(".gallery");
-    galleries.forEach(function (gal) {
-      var items = gal.querySelectorAll(".gallery__item");
-      if (items.length < 2) return;
-
-      var dots = document.createElement("div");
-      dots.className = "gallery-dots";
-      items.forEach(function (_, i) {
-        var d = document.createElement("button");
-        d.type = "button";
-        d.className = "gallery-dots__dot" + (i === 0 ? " is-active" : "");
-        d.setAttribute("data-i18n-label", (i + 1) + ". kép|Image " + (i + 1));
-        d.setAttribute("aria-label", (i + 1) + ". kép");
-        d.addEventListener("click", function () {
-          gal.scrollTo({ left: i * gal.clientWidth, behavior: "smooth" });
-        });
-        dots.appendChild(d);
-      });
-      gal.insertAdjacentElement("afterend", dots);
-
-      var ticking = false;
-      gal.addEventListener("scroll", function () {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () {
-          var idx = Math.round(gal.scrollLeft / gal.clientWidth);
-          dots.querySelectorAll(".gallery-dots__dot").forEach(function (d, i) {
-            d.classList.toggle("is-active", i === idx);
-          });
-          ticking = false;
-        });
-      }, { passive: true });
-    });
-  });
-})();
-
-/* Vissza a tetejére gomb */
-(function () {
-  document.addEventListener("DOMContentLoaded", function () {
-    var toTop = document.createElement("button");
-    toTop.type = "button";
-    toTop.className = "to-top";
-    toTop.setAttribute("data-i18n-label", "Vissza a tetejére|Back to top");
-    toTop.setAttribute("aria-label", "Vissza a tetejére");
-    toTop.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>';
-    toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
-    document.body.appendChild(toTop);
-
-    var ticking = false;
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(function () {
-        toTop.classList.toggle("show", window.scrollY > 600);
-        ticking = false;
-      });
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    // a fent létrehozott vezérlők is megkapják a nyelvhelyes aria-label-t
+    setLang(getLang());
   });
 })();

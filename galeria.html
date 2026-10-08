@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>document.documentElement.classList.add('js')</script>
+<script>document.documentElement.classList.add('js');try{var l=localStorage.getItem('holdudvar_lang');if(l){document.documentElement.setAttribute('data-lang',l);document.documentElement.lang=l}}catch(e){}</script>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta name="theme-color" content="#0A3834">
@@ -11,7 +11,7 @@
 <meta name="description" content="Pillanatképek a Holdudvar Vendégházról: belső terek, apartmanok, a gondozott kert és a Tisza-tó környéke.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Holdudvar Vendégház">
@@ -33,12 +33,10 @@
 <body class="inner">
 <a class="skip-link" href="#main"><span data-lang-hu>Ugrás a tartalomhoz</span><span data-lang-en>Skip to content</span></a>
 
-<nav class="nav nav--solid">
+<header class="nav nav--solid">
   <div class="nav__inner">
-    <a class="brand" href="index.html" aria-label="Holdudvar Vendégház">
-      <span class="brand__name">Holdudvar Vendégház</span>
-    </a>
-    <div class="nav__links">
+    <a class="brand" href="index.html" aria-label="Holdudvar Vendégház"><span class="brand__name">Holdudvar Vendégház</span></a>
+    <nav class="nav__links" data-i18n-label="Fő navigáció|Main navigation" aria-label="Fő navigáció">
       <a class="nav__link" href="index.html"><span data-lang-hu>Kezdőlap</span><span data-lang-en>Home</span></a>
       <a class="nav__link" href="apartmanok.html"><span data-lang-hu>Apartmanok</span><span data-lang-en>Apartments</span></a>
       <a class="nav__link" href="galeria.html" aria-current="page"><span data-lang-hu>Galéria</span><span data-lang-en>Gallery</span></a>
@@ -46,90 +44,92 @@
       <a class="nav__link" href="naptar.html"><span data-lang-hu>Naptár</span><span data-lang-en>Calendar</span></a>
       <a class="nav__link" href="gyik.html"><span data-lang-hu>GYIK</span><span data-lang-en>FAQ</span></a>
       <a class="nav__link" href="foglalas.html"><span data-lang-hu>Kapcsolat</span><span data-lang-en>Contact</span></a>
-    </div>
+    </nav>
     <div class="nav__right">
-        <button class="lang-toggle" type="button" data-lang-toggle lang="en" aria-label="Switch to English">EN</button>
-      <a class="btn nav__cta" href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Enquire</span></a>
+      <div class="lang-switch" role="group" aria-label="Nyelv / Language"><button type="button" data-lang-btn="hu" lang="hu" aria-pressed="true" aria-label="Magyar">HU</button><span aria-hidden="true">|</span><button type="button" data-lang-btn="en" lang="en" aria-pressed="false" aria-label="English">EN</button></div>
+      <a class="btn btn--sm nav__cta" href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Enquire</span></a>
       <button class="burger" type="button" data-i18n-label="Menü|Menu" aria-label="Menü" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
     </div>
   </div>
-</nav>
+</header>
 
 <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" data-i18n-label="Menü|Menu" aria-label="Menü" aria-hidden="true">
   <div class="mobile-menu__top">
-    <span class="brand__name" style="color:var(--cream)">Holdudvar Vendégház</span>
-    <button class="mobile-menu__close" type="button" data-close data-i18n-label="Menü bezárása|Close menu" aria-label="Bezárás"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <span class="brand__name">Holdudvar Vendégház</span>
+    <button class="mobile-menu__close" type="button" data-close data-i18n-label="Menü bezárása|Close menu" aria-label="Menü bezárása"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
   </div>
-  <nav class="mobile-menu__links">
+  <nav class="mobile-menu__links" data-i18n-label="Menü|Menu" aria-label="Menü">
     <a href="index.html"><span data-lang-hu>Kezdőlap</span><span data-lang-en>Home</span></a>
     <a href="apartmanok.html"><span data-lang-hu>Apartmanok</span><span data-lang-en>Apartments</span></a>
-    <a href="galeria.html"><span data-lang-hu>Galéria</span><span data-lang-en>Gallery</span></a>
+    <a href="galeria.html" aria-current="page"><span data-lang-hu>Galéria</span><span data-lang-en>Gallery</span></a>
     <a href="kornyek.html"><span data-lang-hu>Környék</span><span data-lang-en>Surroundings</span></a>
     <a href="naptar.html"><span data-lang-hu>Naptár</span><span data-lang-en>Calendar</span></a>
     <a href="gyik.html"><span data-lang-hu>GYIK</span><span data-lang-en>FAQ</span></a>
     <a href="foglalas.html"><span data-lang-hu>Kapcsolat</span><span data-lang-en>Contact</span></a>
     <a href="hazirend.html"><span data-lang-hu>Házirend</span><span data-lang-en>House rules</span></a>
-    <a href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Enquiry</span></a>
   </nav>
-  <div class="mobile-menu__lang">
-        <button class="lang-toggle" type="button" data-lang-toggle lang="en" aria-label="Switch to English">EN</button>
+  <div class="mobile-menu__foot">
+    <a class="btn btn--gold btn--block" href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Request a quote</span> <span class="ar" aria-hidden="true">→</span></a>
+    <p class="mobile-menu__tel"><span data-lang-hu>Telefon</span><span data-lang-en>Phone</span>: <a href="tel:+36202589544">+36 20 258 9544</a></p>
+    <div class="lang-switch" role="group" aria-label="Nyelv / Language"><button type="button" data-lang-btn="hu" lang="hu" aria-pressed="true" aria-label="Magyar">HU</button><span aria-hidden="true">|</span><button type="button" data-lang-btn="en" lang="en" aria-pressed="false" aria-label="English">EN</button></div>
   </div>
 </div>
 
 <main id="main">
 
 <header class="page-head wrap reveal in">
+  <p class="eyebrow"><span data-lang-hu>Galéria</span><span data-lang-en>Gallery</span></p>
   <h1 class="page-title"><span data-lang-hu>Pillanatképek a csendből.</span><span data-lang-en>Glimpses of the quiet.</span></h1>
+  <p class="lead"><span data-lang-hu>Apartmanonként és a közös terek szerint rendezve — kattintson bármelyik képre a nagyobb nézethez.</span><span data-lang-en>Arranged by apartment and shared spaces — click any image for a larger view.</span></p>
 </header>
 
 <section class="section">
   <div class="wrap">
-    <p class="lead reveal maxch" style="margin-bottom:clamp(36px,5vw,56px)"><span data-lang-hu>Apartmanonként és a közös terek szerint rendezve — kattintson bármelyik képre a nagyobb nézethez.</span><span data-lang-en>Arranged by apartment and shared spaces — click any image for a larger view.</span></p>
 
-    <h2 class="gallery-group reveal"><span data-lang-hu>Telihold</span><span data-lang-en>Full Moon</span><span class="gallery-group__cap" aria-label="2–4 fő"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.3"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></svg>2–4</span></h2>
+    <h2 class="gallery-group reveal">Telihold<span class="gallery-group__cap" data-i18n-label="2–4 fő|2–4 guests" aria-label="2–4 fő"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.3"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></svg>2–4</span></h2>
     <div class="gallery">
-      <div class="gallery__item reveal" data-lightbox data-label="Telihold · önálló kisház, terasz" data-full="assets/img/telihold-terasz.jpg"><div class="ph ph--photo" data-label="Telihold – önálló kisház, terasz"><img src="assets/img/telihold-terasz.jpg" width="1600" height="1067" alt="Telihold – önálló kisház, terasz"Telihold – önálló kisház, terasz6382 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Telihold · nappali, étkező" data-full="assets/img/telihold-nappali.jpg"><div class="ph ph--photo" data-label="Telihold – nappali, étkező"><img src="assets/img/telihold-nappali.jpg" width="1800" height="1200" alt="Telihold – nappali, étkező"Telihold – nappali, étkező6697 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Telihold · nappali" data-full="assets/img/telihold-nappali2.jpg"><div class="ph ph--photo" data-label="Telihold – nappali"><img src="assets/img/telihold-nappali2.jpg" width="1800" height="1200" alt="Telihold – nappali"Telihold – nappali7008 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Telihold · háló" data-full="assets/img/telihold-halo.jpg"><div class="ph ph--photo" data-label="Telihold – háló"><img src="assets/img/telihold-halo.jpg" width="1800" height="1200" alt="Telihold – háló"Telihold – háló7313 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Telihold · konyha" data-full="assets/img/telihold-konyha.jpg"><div class="ph ph--photo" data-label="Telihold – konyha"><img src="assets/img/telihold-konyha.jpg" width="1800" height="1200" alt="Telihold – konyha"Telihold – konyha7607 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Telihold · fürdőszoba" data-full="assets/img/telihold-furdo.jpg"><div class="ph ph--photo" data-label="Telihold – fürdőszoba"><img src="assets/img/telihold-furdo.jpg" width="1800" height="1200" alt="Telihold – fürdőszoba"Telihold – fürdőszoba7907 loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Telihold · önálló kisház, terasz" data-label-en="Telihold · standalone cottage, terrace" data-full="assets/img/telihold-terasz.jpg"><div class="ph ph--photo"><img src="assets/img/800/telihold-terasz.jpg" srcset="assets/img/800/telihold-terasz.jpg 800w, assets/img/telihold-terasz.jpg 1600w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1600" height="1067" alt="Telihold – önálló kisház, terasz" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Telihold · nappali, étkező" data-label-en="Telihold · living and dining room" data-full="assets/img/telihold-nappali.jpg"><div class="ph ph--photo"><img src="assets/img/800/telihold-nappali.jpg" srcset="assets/img/800/telihold-nappali.jpg 800w, assets/img/telihold-nappali.jpg 1800w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1800" height="1200" alt="Telihold – nappali, étkező" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Telihold · nappali" data-label-en="Telihold · living room" data-full="assets/img/telihold-nappali2.jpg"><div class="ph ph--photo"><img src="assets/img/800/telihold-nappali2.jpg" srcset="assets/img/800/telihold-nappali2.jpg 800w, assets/img/telihold-nappali2.jpg 1800w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1800" height="1200" alt="Telihold – nappali" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Telihold · háló" data-label-en="Telihold · bedroom" data-full="assets/img/telihold-halo.jpg"><div class="ph ph--photo"><img src="assets/img/800/telihold-halo.jpg" srcset="assets/img/800/telihold-halo.jpg 800w, assets/img/telihold-halo.jpg 1800w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1800" height="1200" alt="Telihold – háló" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Telihold · konyha" data-label-en="Telihold · kitchen" data-full="assets/img/telihold-konyha.jpg"><div class="ph ph--photo"><img src="assets/img/800/telihold-konyha.jpg" srcset="assets/img/800/telihold-konyha.jpg 800w, assets/img/telihold-konyha.jpg 1800w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1800" height="1200" alt="Telihold – konyha" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Telihold · fürdőszoba" data-label-en="Telihold · bathroom" data-full="assets/img/telihold-furdo.jpg"><div class="ph ph--photo"><img src="assets/img/800/telihold-furdo.jpg" srcset="assets/img/800/telihold-furdo.jpg 800w, assets/img/telihold-furdo.jpg 1800w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1800" height="1200" alt="Telihold – fürdőszoba" loading="lazy" decoding="async"></div></div>
     </div>
 
-    <h2 class="gallery-group reveal"><span data-lang-hu>Félhold</span><span data-lang-en>Half Moon</span><span class="gallery-group__cap" aria-label="2–4 fő"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.3"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></svg>2–4</span></h2>
+    <h2 class="gallery-group reveal">Félhold<span class="gallery-group__cap" data-i18n-label="2–4 fő|2–4 guests" aria-label="2–4 fő"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.3"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></svg>2–4</span></h2>
     <div class="gallery">
-      <div class="gallery__item reveal" data-lightbox data-label="Félhold · nappali" data-full="assets/img/felhold-nappali.jpg"><div class="ph ph--photo" data-label="Félhold – nappali"><img src="assets/img/felhold-nappali.jpg" width="1800" height="1200" alt="Félhold – nappali"Félhold – nappali8641 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Félhold · háló" data-full="assets/img/felhold-halo.jpg"><div class="ph ph--photo" data-label="Félhold – háló"><img src="assets/img/felhold-halo.jpg" width="1800" height="1200" alt="Félhold – háló"Félhold – háló8941 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Félhold · konyha, étkező" data-full="assets/img/felhold-etkezo.jpg"><div class="ph ph--photo" data-label="Félhold – konyha, étkező"><img src="assets/img/felhold-etkezo.jpg" width="1800" height="1200" alt="Félhold – konyha, étkező"Félhold – konyha, étkező9232 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Félhold · előszoba" data-full="assets/img/felhold-eloszoba.jpg"><div class="ph ph--photo" data-label="Félhold – előszoba"><img src="assets/img/felhold-eloszoba.jpg" width="1800" height="1200" alt="Félhold – előszoba"Félhold – előszoba9537 loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Félhold · nappali" data-label-en="Félhold · living room" data-full="assets/img/felhold-nappali.jpg"><div class="ph ph--photo"><img src="assets/img/800/felhold-nappali.jpg" srcset="assets/img/800/felhold-nappali.jpg 800w, assets/img/felhold-nappali.jpg 1800w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1800" height="1200" alt="Félhold – nappali" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Félhold · háló" data-label-en="Félhold · bedroom" data-full="assets/img/felhold-halo.jpg"><div class="ph ph--photo"><img src="assets/img/800/felhold-halo.jpg" srcset="assets/img/800/felhold-halo.jpg 800w, assets/img/felhold-halo.jpg 1800w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1800" height="1200" alt="Félhold – háló" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Félhold · konyha, étkező" data-label-en="Félhold · kitchen and dining" data-full="assets/img/felhold-etkezo.jpg"><div class="ph ph--photo"><img src="assets/img/800/felhold-etkezo.jpg" srcset="assets/img/800/felhold-etkezo.jpg 800w, assets/img/felhold-etkezo.jpg 1800w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1800" height="1200" alt="Félhold – konyha, étkező" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Félhold · előszoba" data-label-en="Félhold · hallway" data-full="assets/img/felhold-eloszoba.jpg"><div class="ph ph--photo"><img src="assets/img/800/felhold-eloszoba.jpg" srcset="assets/img/800/felhold-eloszoba.jpg 800w, assets/img/felhold-eloszoba.jpg 1800w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1800" height="1200" alt="Félhold – előszoba" loading="lazy" decoding="async"></div></div>
     </div>
 
-    <h2 class="gallery-group reveal"><span data-lang-hu>Holdfény</span><span data-lang-en>Moonlight</span><span class="gallery-group__cap" aria-label="4–6 fő"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.3"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></svg>4–6</span></h2>
+    <h2 class="gallery-group reveal">Holdfény<span class="gallery-group__cap" data-i18n-label="4–6 fő|4–6 guests" aria-label="4–6 fő"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.3"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></svg>4–6</span></h2>
     <div class="gallery">
-      <div class="gallery__item reveal" data-lightbox data-label="Holdfény · nappali" data-full="assets/img/holdfeny-nappali.jpg"><div class="ph ph--photo" data-label="Holdfény – nappali"><img src="assets/img/holdfeny-nappali.jpg" width="1600" height="1067" alt="Holdfény – nappali"Holdfény – nappali10273 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Holdfény · nappali" data-full="assets/img/holdfeny-nappali2.jpg"><div class="ph ph--photo" data-label="Holdfény – nappali"><img src="assets/img/holdfeny-nappali2.jpg" width="1600" height="1067" alt="Holdfény – nappali"Holdfény – nappali10576 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Holdfény · háló" data-full="assets/img/holdfeny-halo1.jpg"><div class="ph ph--photo" data-label="Holdfény – háló"><img src="assets/img/holdfeny-halo1.jpg" width="1600" height="1067" alt="Holdfény – háló"Holdfény – háló10881 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Holdfény · háló" data-full="assets/img/holdfeny-halo2.jpg"><div class="ph ph--photo" data-label="Holdfény – háló"><img src="assets/img/holdfeny-halo2.jpg" width="1600" height="1067" alt="Holdfény – háló"Holdfény – háló11177 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Holdfény · konyha, étkező" data-full="assets/img/holdfeny-konyha.jpg"><div class="ph ph--photo" data-label="Holdfény – konyha, étkező"><img src="assets/img/holdfeny-konyha.jpg" width="1600" height="1067" alt="Holdfény – konyha, étkező"Holdfény – konyha, étkező11473 loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Holdfény · nappali" data-label-en="Holdfény · living room" data-full="assets/img/holdfeny-nappali.jpg"><div class="ph ph--photo"><img src="assets/img/800/holdfeny-nappali.jpg" srcset="assets/img/800/holdfeny-nappali.jpg 800w, assets/img/holdfeny-nappali.jpg 1600w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1600" height="1067" alt="Holdfény – nappali" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Holdfény · nappali" data-label-en="Holdfény · living room" data-full="assets/img/holdfeny-nappali2.jpg"><div class="ph ph--photo"><img src="assets/img/800/holdfeny-nappali2.jpg" srcset="assets/img/800/holdfeny-nappali2.jpg 800w, assets/img/holdfeny-nappali2.jpg 1600w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1600" height="1067" alt="Holdfény – nappali" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Holdfény · háló" data-label-en="Holdfény · bedroom" data-full="assets/img/holdfeny-halo1.jpg"><div class="ph ph--photo"><img src="assets/img/800/holdfeny-halo1.jpg" srcset="assets/img/800/holdfeny-halo1.jpg 800w, assets/img/holdfeny-halo1.jpg 1600w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1600" height="1067" alt="Holdfény – háló" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Holdfény · háló" data-label-en="Holdfény · bedroom" data-full="assets/img/holdfeny-halo2.jpg"><div class="ph ph--photo"><img src="assets/img/800/holdfeny-halo2.jpg" srcset="assets/img/800/holdfeny-halo2.jpg 800w, assets/img/holdfeny-halo2.jpg 1600w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1600" height="1067" alt="Holdfény – háló" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Holdfény · konyha, étkező" data-label-en="Holdfény · kitchen and dining" data-full="assets/img/holdfeny-konyha.jpg"><div class="ph ph--photo"><img src="assets/img/800/holdfeny-konyha.jpg" srcset="assets/img/800/holdfeny-konyha.jpg 800w, assets/img/holdfeny-konyha.jpg 1600w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1600" height="1067" alt="Holdfény – konyha, étkező" loading="lazy" decoding="async"></div></div>
     </div>
 
     <h2 class="gallery-group reveal"><span data-lang-hu>Közös terek</span><span data-lang-en>Shared spaces</span></h2>
     <div class="gallery">
-      <div class="gallery__item reveal" data-lightbox data-label="Közös terek · udvar és kert" data-full="assets/img/udvar.jpg"><div class="ph ph--photo" data-label="Közös terek – udvar és kert"><img src="assets/img/udvar.jpg" width="1118" height="839" alt="Közös terek – udvar és kert"Közös terek – udvar és kert11938 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Közös terek · napozóágyak" data-full="assets/img/kert-napozo.jpg"><div class="ph ph--photo" data-label="Közös terek – napozóágyak"><img src="assets/img/kert-napozo.jpg" width="1448" height="1086" alt="Közös terek – napozóágyak"Közös terek – napozóágyak12228 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Közös terek · fedett terasz" data-full="assets/img/terasz-pergola.jpg"><div class="ph ph--photo" data-label="Közös terek – fedett terasz"><img src="assets/img/terasz-pergola.jpg" width="1195" height="896" alt="Közös terek – fedett terasz"Közös terek – fedett terasz12528 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Közös terek · grillterasz" data-full="assets/img/terasz-grill.jpg"><div class="ph ph--photo" data-label="Közös terek – grillterasz"><img src="assets/img/terasz-grill.jpg" width="1448" height="1086" alt="Közös terek – grillterasz"Közös terek – grillterasz12836 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Közös terek · terasz esti fényben" data-full="assets/img/terasz-este.jpg"><div class="ph ph--photo" data-label="Közös terek – terasz esti fényben"><img src="assets/img/terasz-este.jpg" width="1195" height="896" alt="Közös terek – terasz esti fényben"Közös terek – terasz esti fényben13138 loading="lazy" decoding="async"></div></div>
-      <div class="gallery__item reveal" data-lightbox data-label="Közös terek · fedett étkezőterasz" data-full="assets/img/terasz-etkezo.jpg"><div class="ph ph--photo" data-label="Közös terek – fedett étkezőterasz"><img src="assets/img/terasz-etkezo.jpg" width="1448" height="1086" alt="Közös terek – fedett étkezőterasz"Közös terek – fedett étkezőterasz13446 loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Közös terek · udvar és kert" data-label-en="Shared spaces · courtyard and garden" data-full="assets/img/udvar.jpg"><div class="ph ph--photo"><img src="assets/img/800/udvar.jpg" srcset="assets/img/800/udvar.jpg 800w, assets/img/udvar.jpg 1118w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1118" height="839" alt="Közös terek – udvar és kert" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Közös terek · napozóágyak" data-label-en="Shared spaces · sun loungers" data-full="assets/img/kert-napozo.jpg"><div class="ph ph--photo"><img src="assets/img/800/kert-napozo.jpg" srcset="assets/img/800/kert-napozo.jpg 800w, assets/img/kert-napozo.jpg 1448w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1448" height="1086" alt="Közös terek – napozóágyak" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Közös terek · fedett terasz" data-label-en="Shared spaces · covered terrace" data-full="assets/img/terasz-pergola.jpg"><div class="ph ph--photo"><img src="assets/img/800/terasz-pergola.jpg" srcset="assets/img/800/terasz-pergola.jpg 800w, assets/img/terasz-pergola.jpg 1195w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1195" height="896" alt="Közös terek – fedett terasz" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Közös terek · grillterasz" data-label-en="Shared spaces · grill terrace" data-full="assets/img/terasz-grill.jpg"><div class="ph ph--photo"><img src="assets/img/800/terasz-grill.jpg" srcset="assets/img/800/terasz-grill.jpg 800w, assets/img/terasz-grill.jpg 1448w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1448" height="1086" alt="Közös terek – grillterasz" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Közös terek · terasz esti fényben" data-label-en="Shared spaces · terrace in evening light" data-full="assets/img/terasz-este.jpg"><div class="ph ph--photo"><img src="assets/img/800/terasz-este.jpg" srcset="assets/img/800/terasz-este.jpg 800w, assets/img/terasz-este.jpg 1195w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1195" height="896" alt="Közös terek – terasz esti fényben" loading="lazy" decoding="async"></div></div>
+      <div class="gallery__item reveal" data-lightbox data-label="Közös terek · fedett étkezőterasz" data-label-en="Shared spaces · covered dining terrace" data-full="assets/img/terasz-etkezo.jpg"><div class="ph ph--photo"><img src="assets/img/800/terasz-etkezo.jpg" srcset="assets/img/800/terasz-etkezo.jpg 800w, assets/img/terasz-etkezo.jpg 1448w" sizes="(min-width: 1240px) 720px, (min-width: 768px) 60vw, 100vw" width="1448" height="1086" alt="Közös terek – fedett étkezőterasz" loading="lazy" decoding="async"></div></div>
     </div>
   </div>
 </section>
 
 <section class="cta-band">
   <div class="wrap center reveal">
-    <h2 style="color:var(--white); max-width:20ch; margin:0 auto"><span data-lang-hu>Lássa élőben is.</span><span data-lang-en>See it in person.</span></h2>
-    <p style="color:var(--cream); max-width:46ch; margin:22px auto 34px"><span data-lang-hu>Kérjen ajánlatot, és élvezze a Holdudvar nyugalmát.</span><span data-lang-en>Request a quote and enjoy the calm of Holdudvar.</span></p>
-    <a class="btn btn--gold" href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Request a quote</span></a>
+    <h2><span data-lang-hu>Lássa élőben is.</span><span data-lang-en>See it in person.</span></h2>
+    <p><span data-lang-hu>Kérjen ajánlatot, és élvezze a Holdudvar nyugalmát.</span><span data-lang-en>Request a quote and enjoy the calm of Holdudvar.</span></p>
+    <a class="btn btn--gold" href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Request a quote</span> <span class="ar" aria-hidden="true">→</span></a>
   </div>
 </section>
 
@@ -140,7 +140,7 @@
     <div class="footer__grid">
       <div class="footer__brand">
         <span class="brand__name">Holdudvar Vendégház</span>
-        <p style="margin-top:22px; color:rgba(239,233,220,0.8); max-width:34ch"><span data-lang-hu>Három apartmanos vidéki vendégház a Tisza-tó fővárosában, Tiszafüreden.</span><span data-lang-en>A three-apartment countryside guesthouse in Tiszafüred, the capital of Lake Tisza.</span></p>
+        <p><span data-lang-hu>Három apartmanos vidéki vendégház a Tisza-tó fővárosában, Tiszafüreden.</span><span data-lang-en>A three-apartment countryside guesthouse in Tiszafüred, the capital of Lake Tisza.</span></p>
         <a class="footer-social" href="https://www.facebook.com/holdudvarvendeghaz" target="_blank" rel="noopener noreferrer" data-i18n-label="Holdudvar a Facebookon|Holdudvar on Facebook" aria-label="Holdudvar a Facebookon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.12 5.32H17V2.14A26.11 26.11 0 0 0 14.26 2c-2.72 0-4.58 1.66-4.58 4.7v2.6H6.61v3.56h3.07V22h3.68v-9.14h3.06l.46-3.56h-3.52V7c0-1.03.28-1.73 1.76-1.73z"/></svg></a>
       </div>
       <div class="footer__col">
@@ -162,6 +162,7 @@
           <li><a href="tel:+36203942551">+36 20 394 2551</a></li>
           <li><a href="mailto:holdudvartiszato@gmail.com">holdudvartiszato@gmail.com</a></li>
           <li>5350 Tiszafüred, Igari út 21.</li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Tiszaf%C3%BCred%20Igari%20%C3%BAt%2021" target="_blank" rel="noopener noreferrer"><span data-lang-hu>Útvonalterv</span><span data-lang-en>Directions</span> ↗</a></li>
         </ul>
       </div>
     </div>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>document.documentElement.classList.add('js')</script>
+<script>document.documentElement.classList.add('js');try{var l=localStorage.getItem('holdudvar_lang');if(l){document.documentElement.setAttribute('data-lang',l);document.documentElement.lang=l}}catch(e){}</script>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta name="theme-color" content="#0A3834">
@@ -11,9 +11,9 @@
 <meta name="description" content="Holdudvar Vendégház — három apartman és vidéki szállás Tiszafüreden, a Tisza-tó fővárosában. Csend, tágas terek, otthonos elegancia, gondozott kert.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
-<link rel="preload" as="image" href="assets/img/kert.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/kert.jpg" imagesrcset="assets/img/800/kert.jpg 800w, assets/img/kert.jpg 1109w" imagesizes="100vw" fetchpriority="high">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Holdudvar Vendégház">
 <meta property="og:locale" content="hu_HU">
@@ -81,13 +81,10 @@
 <body>
 <a class="skip-link" href="#main"><span data-lang-hu>Ugrás a tartalomhoz</span><span data-lang-en>Skip to content</span></a>
 
-<!-- ============ NAV ============ -->
-<nav class="nav nav--over" data-over-hero>
+<header class="nav nav--over" data-over-hero>
   <div class="nav__inner">
-    <a class="brand" href="index.html" aria-label="Holdudvar Vendégház">
-      <span class="brand__name">Holdudvar Vendégház</span>
-    </a>
-    <div class="nav__links">
+    <a class="brand" href="index.html" aria-label="Holdudvar Vendégház"><span class="brand__name">Holdudvar Vendégház</span></a>
+    <nav class="nav__links" data-i18n-label="Fő navigáció|Main navigation" aria-label="Fő navigáció">
       <a class="nav__link" href="index.html" aria-current="page"><span data-lang-hu>Kezdőlap</span><span data-lang-en>Home</span></a>
       <a class="nav__link" href="apartmanok.html"><span data-lang-hu>Apartmanok</span><span data-lang-en>Apartments</span></a>
       <a class="nav__link" href="galeria.html"><span data-lang-hu>Galéria</span><span data-lang-en>Gallery</span></a>
@@ -95,23 +92,22 @@
       <a class="nav__link" href="naptar.html"><span data-lang-hu>Naptár</span><span data-lang-en>Calendar</span></a>
       <a class="nav__link" href="gyik.html"><span data-lang-hu>GYIK</span><span data-lang-en>FAQ</span></a>
       <a class="nav__link" href="foglalas.html"><span data-lang-hu>Kapcsolat</span><span data-lang-en>Contact</span></a>
-    </div>
+    </nav>
     <div class="nav__right">
-        <button class="lang-toggle" type="button" data-lang-toggle lang="en" aria-label="Switch to English">EN</button>
-      <a class="btn nav__cta" href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Enquire</span></a>
+      <div class="lang-switch" role="group" aria-label="Nyelv / Language"><button type="button" data-lang-btn="hu" lang="hu" aria-pressed="true" aria-label="Magyar">HU</button><span aria-hidden="true">|</span><button type="button" data-lang-btn="en" lang="en" aria-pressed="false" aria-label="English">EN</button></div>
+      <a class="btn btn--sm nav__cta" href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Enquire</span></a>
       <button class="burger" type="button" data-i18n-label="Menü|Menu" aria-label="Menü" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
     </div>
   </div>
-</nav>
+</header>
 
-<!-- ============ MOBILE MENU ============ -->
 <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" data-i18n-label="Menü|Menu" aria-label="Menü" aria-hidden="true">
   <div class="mobile-menu__top">
-    <span class="brand__name" style="color:var(--cream)">Holdudvar Vendégház</span>
-    <button class="mobile-menu__close" type="button" data-close data-i18n-label="Menü bezárása|Close menu" aria-label="Bezárás"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <span class="brand__name">Holdudvar Vendégház</span>
+    <button class="mobile-menu__close" type="button" data-close data-i18n-label="Menü bezárása|Close menu" aria-label="Menü bezárása"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
   </div>
-  <nav class="mobile-menu__links">
-    <a href="index.html"><span data-lang-hu>Kezdőlap</span><span data-lang-en>Home</span></a>
+  <nav class="mobile-menu__links" data-i18n-label="Menü|Menu" aria-label="Menü">
+    <a href="index.html" aria-current="page"><span data-lang-hu>Kezdőlap</span><span data-lang-en>Home</span></a>
     <a href="apartmanok.html"><span data-lang-hu>Apartmanok</span><span data-lang-en>Apartments</span></a>
     <a href="galeria.html"><span data-lang-hu>Galéria</span><span data-lang-en>Gallery</span></a>
     <a href="kornyek.html"><span data-lang-hu>Környék</span><span data-lang-en>Surroundings</span></a>
@@ -119,199 +115,218 @@
     <a href="gyik.html"><span data-lang-hu>GYIK</span><span data-lang-en>FAQ</span></a>
     <a href="foglalas.html"><span data-lang-hu>Kapcsolat</span><span data-lang-en>Contact</span></a>
     <a href="hazirend.html"><span data-lang-hu>Házirend</span><span data-lang-en>House rules</span></a>
-    <a href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Enquiry</span></a>
   </nav>
-  <div class="mobile-menu__lang">
-        <button class="lang-toggle" type="button" data-lang-toggle lang="en" aria-label="Switch to English">EN</button>
+  <div class="mobile-menu__foot">
+    <a class="btn btn--gold btn--block" href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Request a quote</span> <span class="ar" aria-hidden="true">→</span></a>
+    <p class="mobile-menu__tel"><span data-lang-hu>Telefon</span><span data-lang-en>Phone</span>: <a href="tel:+36202589544">+36 20 258 9544</a></p>
+    <div class="lang-switch" role="group" aria-label="Nyelv / Language"><button type="button" data-lang-btn="hu" lang="hu" aria-pressed="true" aria-label="Magyar">HU</button><span aria-hidden="true">|</span><button type="button" data-lang-btn="en" lang="en" aria-pressed="false" aria-label="English">EN</button></div>
   </div>
 </div>
 
 <main id="main">
 
 <!-- ============ HERO ============ -->
-<header class="page-hero page-hero--center page-hero--full">
-  <div class="ph ph--dark ph--photo ph--parallax" data-label="HERO · vendégház aranyórás fényben, gondozott kert"><img src="assets/img/kert.jpg" width="1109" height="833" alt="Holdudvar Vendégház épülete aranyórás fényben, gondozott kerttel" fetchpriority="high" decoding="async"></div>
-  <div class="page-hero__veil"></div>
-  <div class="page-hero__inner wrap">
-    <div class="reveal in">
-      <h1 class="display" style="max-width:16ch">
-        <span data-lang-hu>Ahol a vendég <span class="ital">otthonra</span> talál.</span>
-        <span data-lang-en>Where guests feel at <span class="ital">home</span>.</span>
-      </h1>
-      <p class="page-hero__lead">
-        <span data-lang-hu>Csendes vidéki pihenés Tiszafüreden: három otthonos apartman és egy gondozott kert a Tisza-tó fővárosában.</span>
-        <span data-lang-en>A quiet countryside escape in Tiszafüred: three homely apartments and a tended garden in the capital of Lake Tisza.</span>
-      </p>
-      <div class="hero-cta" style="display:flex; gap:16px; flex-wrap:wrap; margin-top:36px">
-        <a class="btn btn--gold" href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Request a quote</span></a>
-        <a class="btn btn--light" href="apartmanok.html"><span data-lang-hu>Apartmanok</span><span data-lang-en>The apartments</span></a>
-      </div>
-      <dl class="hero-meta">
-        <div>
-          <dt><span data-lang-hu>Alapítva</span><span data-lang-en>Established</span></dt>
-          <dd>2020</dd>
-        </div>
-        <div>
-          <dt><span data-lang-hu>Apartman</span><span data-lang-en>Apartments</span></dt>
-          <dd><span data-lang-hu>Három</span><span data-lang-en>Three</span></dd>
-        </div>
-        <div>
-          <dt><span data-lang-hu>Helyszín</span><span data-lang-en>Location</span></dt>
-          <dd>Tiszafüred</dd>
-        </div>
-      </dl>
-    </div>
-  </div>
-</header>
-
-<!-- ============ INTRO ============ -->
-<section class="split split--img-right">
-  <div class="split__text reveal">
-    <span class="eyebrow">Holdudvar Vendégház</span>
-    <h2>
-      <span data-lang-hu>Három apartman, egy vendégház Tiszafüreden.</span>
-      <span data-lang-en>Three apartments, one guesthouse in Tiszafüred.</span>
-    </h2>
-    <p class="lead" style="margin-top:24px">
-      <span data-lang-hu>Tágas terekkel és személyes vendéglátással várjuk kedves vendégeinket vidéki szállásunkon. Egy hely, ahol az eleganciát a csend és a tér adja — a pihenés élménye a részletekben rejlik.</span>
-      <span data-lang-en>We welcome our guests with spacious interiors and personal hospitality at our countryside retreat. A place where elegance comes from quiet and space — where rest lives in the details.</span>
+<section class="hero" aria-labelledby="hero-cim">
+  <div class="hero__media"><img src="assets/img/kert.jpg" srcset="assets/img/800/kert.jpg 800w, assets/img/kert.jpg 1109w" sizes="100vw" width="1109" height="833" alt="A Holdudvar Vendégház régi épülete fedett tornáccal és gondozott kerttel, aranyórás fényben" fetchpriority="high" decoding="async"></div>
+  <div class="hero__veil"></div>
+  <div class="hero__inner wrap">
+    <p class="eyebrow"><span data-lang-hu>Tiszafüred · Tisza-tó</span><span data-lang-en>Tiszafüred · Lake Tisza</span></p>
+    <h1 id="hero-cim">
+      <span data-lang-hu>Ahol a vendég otthonra talál.</span>
+      <span data-lang-en>Where guests feel at home.</span>
+    </h1>
+    <p class="hero__lead">
+      <span data-lang-hu>Csendes vidéki pihenés Tiszafüreden: három otthonos apartman és egy gondozott kert a Tisza-tó fővárosában.</span>
+      <span data-lang-en>A quiet countryside escape in Tiszafüred: three homely apartments and a tended garden in the capital of Lake Tisza.</span>
     </p>
-  </div>
-  <div class="split__media reveal" data-delay="1">
-    <div class="ph ph--photo ph--slant-l" data-label="SZÉLES FOTÓ · a porta és a kert"><img src="assets/img/kert-napozo.jpg" width="1448" height="1086" alt="A vendégház gondozott kertje napozóágyakkal" loading="lazy" decoding="async"></div>
+    <div class="btn-row" data-hero-cta>
+      <a class="btn btn--light" href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Request a quote</span> <span class="ar" aria-hidden="true">→</span></a>
+      <a class="btn btn--outline-light" href="apartmanok.html"><span data-lang-hu>Apartmanok</span><span data-lang-en>The apartments</span> <span class="ar" aria-hidden="true">→</span></a>
+    </div>
   </div>
 </section>
 
-<!-- ============ APARTMENTS TEASER ============ -->
-<section class="section section--pale">
-  <div class="wrap">
-    <div class="center reveal" style="margin-bottom:clamp(40px,5vw,68px)">
-      <span class="eyebrow eyebrow--center">Apartmanok</span>
-      <h2 style="max-width:18ch;margin:0 auto">
-        <span data-lang-hu>Telihold, Félhold, Holdfény.</span>
-        <span data-lang-en>Full Moon, Half Moon, Moonlight.</span>
+<!-- ============ TÉNYEK ============ -->
+<section class="facts" aria-label="Holdudvar röviden" data-i18n-label="Holdudvar röviden|Holdudvar at a glance">
+  <dl class="facts__row wrap">
+    <div class="fact"><dt><span data-lang-hu>Alapítva</span><span data-lang-en>Established</span></dt><dd>2020</dd></div>
+    <div class="fact"><dt><span data-lang-hu>Apartman</span><span data-lang-en>Apartments</span></dt><dd>03</dd></div>
+    <div class="fact"><dt><span data-lang-hu>Férőhely</span><span data-lang-en>Guests</span></dt><dd>14</dd></div>
+    <div class="fact"><dt><span data-lang-hu>Tisza-tó</span><span data-lang-en>Lake Tisza</span></dt><dd>Tiszafüred</dd></div>
+  </dl>
+</section>
+
+<!-- ============ BEMUTATKOZÁS ============ -->
+<section class="section intro">
+  <div class="wrap intro__grid">
+    <div class="reveal">
+      <p class="eyebrow">Holdudvar Vendégház</p>
+      <h2>
+        <span data-lang-hu>Egy hely, ahol az eleganciát a csend és a tér adja.</span>
+        <span data-lang-en>A place where elegance comes from quiet and space.</span>
       </h2>
-      <p class="lead maxch" style="margin:18px auto 0">
-        <span data-lang-hu>Három különálló apartman Tiszafüreden, a Tisza-tó fővárosában — mindegyik saját karakterrel és teljesen felszerelt konyhával.</span>
-        <span data-lang-en>Three separate apartments in Tiszafüred, the capital of Lake Tisza — each with its own character and a fully equipped kitchen.</span>
-      </p>
     </div>
-    <div class="grid-3">
-      <a class="apt-card reveal" href="apartmanok.html#telihold" data-delay="1">
-        <div class="ph ph--photo" data-label="TELIHOLD · önálló kisház, terasz" style="aspect-ratio:3/2"><img src="assets/img/telihold-terasz.jpg" width="1600" height="1067" alt="Telihold apartman – önálló kisház, terasz" loading="lazy" decoding="async"></div>
-        <div class="apt-card__body">
-          <div class="apt-card__top">
-            <h3>Telihold</h3>
-            <span class="apt-card__cap">2–4 <span data-lang-hu>fő</span><span data-lang-en>guests</span></span>
-          </div>
-          <p class="muted"><span data-lang-hu>Önálló kisház privát bejárattal és saját terasszal, a porta csendes sarkában.</span><span data-lang-en>A standalone cottage with private entrance and terrace, in the quiet corner of the estate.</span></p>
-          <span class="arrow-link"><span data-lang-hu>Részletek</span><span data-lang-en>Details</span><span class="ar">→</span></span>
-        </div>
-      </a>
-      <a class="apt-card reveal" href="apartmanok.html#felhold" data-delay="2">
-        <div class="ph ph--photo" data-label="FÉLHOLD · főépületi apartman, teraszrész" style="aspect-ratio:3/2"><img src="assets/img/felhold-nappali.jpg" width="1800" height="1200" alt="Félhold apartman – főépületi lakrész, teraszrész" loading="lazy" decoding="async"></div>
-        <div class="apt-card__body">
-          <div class="apt-card__top">
-            <h3>Félhold</h3>
-            <span class="apt-card__cap">2–4 <span data-lang-hu>fő</span><span data-lang-en>guests</span></span>
-          </div>
-          <p class="muted"><span data-lang-hu>A főépületben található, teljesen önálló apartman saját teraszrésszel.</span><span data-lang-en>A fully self-contained apartment in the main building, with its own terrace area.</span></p>
-          <span class="arrow-link"><span data-lang-hu>Részletek</span><span data-lang-en>Details</span><span class="ar">→</span></span>
-        </div>
-      </a>
-      <a class="apt-card reveal" href="apartmanok.html#holdfeny" data-delay="3">
-        <div class="ph ph--photo" data-label="HOLDFÉNY · két háló, tágas nappali" style="aspect-ratio:3/2"><img src="assets/img/holdfeny-nappali.jpg" width="1600" height="1067" alt="Holdfény apartman – két háló, tágas nappali" loading="lazy" decoding="async"></div>
-        <div class="apt-card__body">
-          <div class="apt-card__top">
-            <h3>Holdfény</h3>
-            <span class="apt-card__cap">4–6 <span data-lang-hu>fő</span><span data-lang-en>guests</span></span>
-          </div>
-          <p class="muted"><span data-lang-hu>Két külön hálószoba és egy tágas, otthonos nappali.</span><span data-lang-en>Two separate bedrooms and a spacious, homely living room.</span></p>
-          <span class="arrow-link"><span data-lang-hu>Részletek</span><span data-lang-en>Details</span><span class="ar">→</span></span>
-        </div>
-      </a>
+    <div class="intro__text reveal" data-delay="1">
+      <p class="lead"><span data-lang-hu>Tágas terekkel és személyes vendéglátással várjuk kedves vendégeinket vidéki szállásunkon, Tiszafüreden.</span><span data-lang-en>We welcome our guests with spacious interiors and personal hospitality at our countryside retreat in Tiszafüred.</span></p>
+      <p class="muted"><span data-lang-hu>Három különálló apartman, mindegyik saját karakterrel és teljesen felszerelt konyhával — körülöttük egy gondozott kert, ahol a pihenés élménye a részletekben rejlik.</span><span data-lang-en>Three separate apartments, each with its own character and a fully equipped kitchen — around them a tended garden, where rest lives in the details.</span></p>
     </div>
   </div>
 </section>
 
-<!-- ============ SINCE 2020 / STATS ============ -->
-<section class="section section--deep">
+<!-- ============ APARTMANOK ============ -->
+<section class="section section--white apts" aria-labelledby="apt-cim">
   <div class="wrap">
-    <div class="grid-2" style="align-items:end">
-      <div class="reveal">
-        <span class="eyebrow eyebrow--light">Azóta</span>
-        <p class="big-year">2020</p>
-        <p class="stat__p" style="max-width:38ch"><span data-lang-hu>A Holdudvar 2020-ban nyitotta meg kapuit azzal a céllal, hogy családok, baráti társaságok és közösségek számára is gondtalan kikapcsolódást nyújtson.</span><span data-lang-en>Holdudvar opened its doors in 2020, with the aim of offering carefree relaxation for families, groups of friends and communities alike.</span></p>
+    <div class="sec-head reveal">
+      <div>
+        <p class="eyebrow"><span data-lang-hu>Apartmanok</span><span data-lang-en>Apartments</span></p>
+        <h2 id="apt-cim"><span data-lang-hu>Három apartman, három karakter.</span><span data-lang-en>Three apartments, three characters.</span></h2>
       </div>
-      <div class="reveal" data-delay="1">
-        <div class="stat-row" style="grid-template-columns:1fr 1fr; display:grid; gap:clamp(24px,3vw,40px)">
-          <div class="stat"><span class="stat__k">3</span><h4 style="color:var(--cream)"><span data-lang-hu>apartman</span><span data-lang-en>apartments</span></h4></div>
-          <div class="stat"><span class="stat__k">14</span><h4 style="color:var(--cream)"><span data-lang-hu>férőhely</span><span data-lang-en>beds</span></h4></div>
-          <div class="stat"><span class="stat__k">100+</span><h4 style="color:var(--cream)"><span data-lang-hu>éves épület</span><span data-lang-en>year-old house</span></h4></div>
-          <div class="stat"><span class="stat__k">1</span><h4 style="color:var(--cream)"><span data-lang-hu>gondozott kert</span><span data-lang-en>tended garden</span></h4></div>
-        </div>
-      </div>
+      <a class="arrow-link" href="apartmanok.html"><span data-lang-hu>Mindhárom részletesen</span><span data-lang-en>All three in detail</span> <span class="ar" aria-hidden="true">→</span></a>
+    </div>
+    <div class="apt-grid">
+      <a class="apt reveal" href="apartmanok.html#telihold">
+        <div class="apt__media"><img src="assets/img/800/telihold-terasz.jpg" srcset="assets/img/800/telihold-terasz.jpg 800w, assets/img/telihold-terasz.jpg 1600w" sizes="(min-width: 1024px) 400px, (min-width: 700px) 50vw, 100vw" width="800" height="534" alt="Telihold — az önálló kisház a saját teraszával" loading="lazy" decoding="async"></div>
+        <div class="apt__meta"><span>01</span><span>2–4 <span data-lang-hu>fő</span><span data-lang-en>guests</span></span></div>
+        <h3 class="apt__name">Telihold</h3>
+        <p class="apt__desc"><span data-lang-hu>Önálló kisház privát bejárattal és saját terasszal, a porta csendes sarkában.</span><span data-lang-en>A standalone cottage with private entrance and terrace, in the quiet corner of the estate.</span></p>
+        <span class="arrow-link"><span data-lang-hu>Részletek</span><span data-lang-en>Details</span> <span class="ar" aria-hidden="true">→</span></span>
+      </a>
+      <a class="apt reveal" href="apartmanok.html#felhold" data-delay="1">
+        <div class="apt__media"><img src="assets/img/800/felhold-nappali.jpg" srcset="assets/img/800/felhold-nappali.jpg 800w, assets/img/felhold-nappali.jpg 1800w" sizes="(min-width: 1024px) 400px, (min-width: 700px) 50vw, 100vw" width="800" height="533" alt="Félhold — a főépületi apartman nappalija" loading="lazy" decoding="async"></div>
+        <div class="apt__meta"><span>02</span><span>2–4 <span data-lang-hu>fő</span><span data-lang-en>guests</span></span></div>
+        <h3 class="apt__name">Félhold</h3>
+        <p class="apt__desc"><span data-lang-hu>A főépületben található, teljesen önálló apartman saját teraszrésszel.</span><span data-lang-en>A fully self-contained apartment in the main building, with its own terrace area.</span></p>
+        <span class="arrow-link"><span data-lang-hu>Részletek</span><span data-lang-en>Details</span> <span class="ar" aria-hidden="true">→</span></span>
+      </a>
+      <a class="apt reveal" href="apartmanok.html#holdfeny" data-delay="2">
+        <div class="apt__media"><img src="assets/img/800/holdfeny-nappali.jpg" srcset="assets/img/800/holdfeny-nappali.jpg 800w, assets/img/holdfeny-nappali.jpg 1600w" sizes="(min-width: 1024px) 400px, (min-width: 700px) 100vw, 100vw" width="800" height="534" alt="Holdfény — a tágas nappali" loading="lazy" decoding="async"></div>
+        <div class="apt__meta"><span>03</span><span>4–6 <span data-lang-hu>fő</span><span data-lang-en>guests</span></span></div>
+        <h3 class="apt__name">Holdfény</h3>
+        <p class="apt__desc"><span data-lang-hu>Két külön hálószoba és egy tágas, otthonos nappali.</span><span data-lang-en>Two separate bedrooms and a spacious, homely living room.</span></p>
+        <span class="arrow-link"><span data-lang-hu>Részletek</span><span data-lang-en>Details</span> <span class="ar" aria-hidden="true">→</span></span>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ============ ABOUT TEASER ============ -->
-<section class="split split--img-left">
-  <div class="split__media reveal">
-    <div class="ph ph--photo ph--slant-r" data-label="BELSŐ TÉR · diófa bútorok, fa nyílászárók, természetes fény"><img src="assets/img/telihold-nappali.jpg" width="1800" height="1200" alt="Apartman nappalija diófa bútorokkal és fa nyílászárókkal" loading="lazy" decoding="async"></div>
-  </div>
-  <div class="split__text reveal" data-delay="1">
-    <span class="eyebrow">Rólunk</span>
-    <h2><span data-lang-hu>Több mint 100 éves épület, modern kényelemmel.</span><span data-lang-en>A century-old house, with modern comfort.</span></h2>
-    <p style="margin-top:24px"><span data-lang-hu>A felújításkor megőriztük az épület patináját, és ötvöztük a modern kor igényeivel. Sok természetes, organikus anyag: gyönyörű fa nyílászárók, eredeti diófa és rózsafa bútorok.</span><span data-lang-en>In the renovation we kept the building's patina and combined it with modern needs. Plenty of natural, organic materials: beautiful timber joinery, original walnut and rosewood furniture.</span></p>
-    <p><span data-lang-hu>Vendégházunk felidézi a régi korok hangulatát, amelybe egy kis modern romantikát is becsempésztünk.</span><span data-lang-en>Our house evokes the mood of times past — with a touch of modern romance woven in.</span></p>
-  </div>
-</section>
-
-<!-- ============ SERVICES STRIP ============ -->
-<section class="section section--deep">
+<!-- ============ 100+ ÉVES ÉPÜLET ============ -->
+<section class="section story" aria-labelledby="story-cim">
   <div class="wrap">
-    <div class="center reveal" style="margin-bottom:clamp(36px,4vw,56px)">
-      <span class="eyebrow eyebrow--center eyebrow--light">Közös terek</span>
-      <h2 style="color:var(--white)"><span data-lang-hu>A kert, ahol megáll az idő.</span><span data-lang-en>A garden where time slows down.</span></h2>
-    </div>
-    <div class="grid-3 stat-row">
-      <div class="stat reveal" data-delay="1">
-        <svg class="stat__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.6M12 18.9v2.6M4.4 4.4l1.9 1.9M17.7 17.7l1.9 1.9M2.5 12h2.6M18.9 12h2.6M4.4 19.6l1.9-1.9M17.7 6.3l1.9-1.9"/></svg>
-        <span class="stat__k">01</span>
-        <h4 style="color:var(--cream)"><span data-lang-hu>Pihenés a kertben</span><span data-lang-en>Rest in the garden</span></h4>
-        <p class="stat__p"><span data-lang-hu>Kerti zuhanyzó és napozóágyak a gondozott pázsiton.</span><span data-lang-en>Garden shower and sun loungers on the tended lawn.</span></p>
-      </div>
-      <div class="stat reveal" data-delay="2">
-        <svg class="stat__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2.5c.4 3.4-3.2 4.4-3.2 8a3.2 3.2 0 0 0 6.4 0c0-.8-.2-1.5-.6-2.1 2 1.2 3 3.1 3 5.2a6 6 0 1 1-12 0c0-4.7 4.2-6.7 6.4-11.1z"/></svg>
-        <span class="stat__k">02</span>
-        <h4 style="color:var(--cream)"><span data-lang-hu>Kert, gasztronómia</span><span data-lang-en>Garden, dining</span></h4>
-        <p class="stat__p"><span data-lang-hu>Fedett terasz, közös társalgó, pergola, valamint grillező- és bográcsozóhely.</span><span data-lang-en>Covered terrace, shared lounge, pergola, plus grill and cauldron-cooking spots.</span></p>
-      </div>
-      <div class="stat reveal" data-delay="3">
-        <svg class="stat__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l7 2.7v5c0 4.4-3 7.5-7 9-4-1.5-7-4.6-7-9v-5z"/><path d="M9 11.8l2.2 2.2 4.3-4.4"/></svg>
-        <span class="stat__k">03</span>
-        <h4 style="color:var(--cream)"><span data-lang-hu>Biztonság</span><span data-lang-en>Security</span></h4>
-        <p class="stat__p"><span data-lang-hu>Térfigyelő kamerával ellátott parkoló a vendégek nyugalmáért.</span><span data-lang-en>A camera-monitored car park for our guests' peace of mind.</span></p>
+    <div class="story__grid">
+      <div class="story__media ph ph--photo reveal"><img src="assets/img/udvar.jpg" srcset="assets/img/800/udvar.jpg 800w, assets/img/udvar.jpg 1118w" sizes="(min-width: 960px) 60vw, 100vw" width="1118" height="839" alt="A több mint százéves főépület hosszú, fa oszlopos tornáca a kert felől" loading="lazy" decoding="async"></div>
+      <div class="story__text reveal" data-delay="1">
+        <p class="story__num"><b>100+</b><span><span data-lang-hu>éves<br>épület</span><span data-lang-en>year-old<br>house</span></span></p>
+        <h2 id="story-cim"><span data-lang-hu>Több mint 100 éves épület, modern kényelemmel.</span><span data-lang-en>A century-old house, with modern comfort.</span></h2>
+        <p><span data-lang-hu>A felújításkor megőriztük az épület patináját, és ötvöztük a modern kor igényeivel. Sok természetes, organikus anyag: gyönyörű fa nyílászárók, eredeti diófa és rózsafa bútorok.</span><span data-lang-en>In the renovation we kept the building's patina and combined it with modern needs. Plenty of natural, organic materials: beautiful timber joinery, original walnut and rosewood furniture.</span></p>
+        <p class="muted"><span data-lang-hu>Vendégházunk felidézi a régi korok hangulatát, amelybe egy kis modern romantikát is becsempésztünk.</span><span data-lang-en>Our house evokes the mood of times past — with a touch of modern romance woven in.</span></p>
       </div>
     </div>
+
+    <ol class="timeline reveal" data-i18n-label="A ház története|The story of the house" aria-label="A ház története">
+      <li class="timeline__item">
+        <span class="timeline__when"><span data-lang-hu>100+ év</span><span data-lang-en>100+ years</span></span>
+        <h3><span data-lang-hu>A ház</span><span data-lang-en>The house</span></h3>
+        <p><span data-lang-hu>Egy több mint százéves tiszafüredi épület, amelynek patináját a felújítás során megőriztük.</span><span data-lang-en>A Tiszafüred house more than a century old, whose patina we kept through the renovation.</span></p>
+      </li>
+      <li class="timeline__item">
+        <span class="timeline__when">2020</span>
+        <h3><span data-lang-hu>A Holdudvar megnyitja kapuit</span><span data-lang-en>Holdudvar opens its gates</span></h3>
+        <p><span data-lang-hu>Azzal a céllal, hogy családok, baráti társaságok és közösségek számára is gondtalan kikapcsolódást nyújtson.</span><span data-lang-en>With the aim of offering carefree relaxation for families, groups of friends and communities alike.</span></p>
+      </li>
+      <li class="timeline__item">
+        <span class="timeline__when"><span data-lang-hu>Ma</span><span data-lang-en>Today</span></span>
+        <h3><span data-lang-hu>Három apartman, egy kert</span><span data-lang-en>Three apartments, one garden</span></h3>
+        <p><span data-lang-hu>Telihold, Félhold és Holdfény — körülöttük fedett terasz, pergola és a közös kert.</span><span data-lang-en>Telihold, Félhold and Holdfény — around them a covered terrace, a pergola and the shared garden.</span></p>
+      </li>
+    </ol>
   </div>
 </section>
 
-<!-- ============ SURROUNDINGS TEASER ============ -->
-<section class="split split--img-right section--pale-2">
-  <div class="split__text reveal">
-    <span class="eyebrow">Környék, élmények</span>
-    <h2><span data-lang-hu>A Tisza-tó a küszöbön túl.</span><span data-lang-en>Lake Tisza, just beyond the gate.</span></h2>
-    <p style="margin-top:24px"><span data-lang-hu>Tiszafüred és a Tisza-tó régiója remek kikapcsolódást kínál: tavi kerékpárút, a Hortobágyi Nemzeti Park programjai, szabadvízi strand, helyi éttermek, csárdák és cukrászdák.</span><span data-lang-en>Tiszafüred and the Lake Tisza region offer wonderful escapes: the lakeside cycle path, Hortobágy National Park programmes, open-water beaches, and local restaurants, inns and patisseries.</span></p>
-    <a class="arrow-link" href="kornyek.html"><span data-lang-hu>Mit érdemes felfedezni</span><span data-lang-en>What to explore</span><span class="ar">→</span></a>
-  </div>
-  <div class="split__media reveal" data-delay="1">
-    <div class="ph ph--photo ph--slant-l" data-label="FEDETT TERASZ · grillező esti fényben"><img src="assets/img/terasz-este.jpg" width="1195" height="896" alt="Fedett terasz és grillezőhely esti fényben" loading="lazy" decoding="async"></div>
+<!-- ============ KERT ============ -->
+<section class="section section--pale garden" aria-labelledby="kert-cim">
+  <div class="wrap">
+    <div class="garden__head reveal">
+      <div>
+        <p class="eyebrow"><span data-lang-hu>Közös terek</span><span data-lang-en>Shared spaces</span></p>
+        <h2 id="kert-cim"><span data-lang-hu>A kert, ahol megáll az idő.</span><span data-lang-en>A garden where time slows down.</span></h2>
+      </div>
+      <p class="lead"><span data-lang-hu>A vendégek számára tágas, gondozott kert, fedett terasz és pergola, közös társalgó, valamint grillező- és bográcsozóhely áll rendelkezésre.</span><span data-lang-en>Guests share a spacious, tended garden, a covered terrace and pergola, a common lounge, and a grill and cauldron-cooking area.</span></p>
+    </div>
+    <div class="garden__media ph ph--photo reveal"><img src="assets/img/kert-napozo.jpg" srcset="assets/img/800/kert-napozo.jpg 800w, assets/img/kert-napozo.jpg 1448w" sizes="(min-width: 1240px) 1240px, 100vw" width="1448" height="1086" alt="A gondozott kert napozóágyakkal, mögötte a vendégház" loading="lazy" decoding="async"></div>
+    <ol class="features">
+      <li class="feature reveal">
+        <span class="feature__no">01</span>
+        <h3><span data-lang-hu>Pihenés</span><span data-lang-en>Rest</span></h3>
+        <p><span data-lang-hu>Kerti zuhanyzó és napozóágyak a gondozott pázsiton.</span><span data-lang-en>Garden shower and sun loungers on the tended lawn.</span></p>
+      </li>
+      <li class="feature reveal" data-delay="1">
+        <span class="feature__no">02</span>
+        <h3><span data-lang-hu>Közös étkezések</span><span data-lang-en>Shared meals</span></h3>
+        <p><span data-lang-hu>Fedett terasz, közös társalgó, pergola, valamint grillező- és bográcsozóhely.</span><span data-lang-en>Covered terrace, shared lounge, pergola, plus grill and cauldron-cooking spots.</span></p>
+      </li>
+      <li class="feature reveal" data-delay="2">
+        <span class="feature__no">03</span>
+        <h3><span data-lang-hu>Biztonság</span><span data-lang-en>Peace of mind</span></h3>
+        <p><span data-lang-hu>Térfigyelő kamerával ellátott parkoló a vendégek nyugalmáért.</span><span data-lang-en>A camera-monitored car park for our guests' peace of mind.</span></p>
+      </li>
+    </ol>
   </div>
 </section>
 
-<!-- ============ FOOTER ============ -->
+<!-- ============ TISZA-TÓ ============ -->
+<section class="section section--deep lake" aria-labelledby="to-cim">
+  <div class="wrap lake__grid">
+    <div class="lake__intro reveal">
+      <p class="eyebrow"><span data-lang-hu>Környék, élmények</span><span data-lang-en>Surroundings</span></p>
+      <h2 id="to-cim"><span data-lang-hu>A Tisza-tó a küszöbön túl.</span><span data-lang-en>Lake Tisza, just beyond the gate.</span></h2>
+      <p><span data-lang-hu>Tiszafüred és a Tisza-tó régiója remek kikapcsolódást kínál — a vendégház jó kiindulópont a tóhoz, a pusztához és a helyi ízekhez.</span><span data-lang-en>Tiszafüred and the Lake Tisza region offer wonderful escapes — the guesthouse is a good base for the lake, the puszta and local flavours.</span></p>
+      <a class="arrow-link" href="kornyek.html"><span data-lang-hu>Fedezze fel a környéket</span><span data-lang-en>Explore the area</span> <span class="ar" aria-hidden="true">→</span></a>
+    </div>
+    <ol class="lake__list">
+      <li class="lake__item reveal">
+        <span class="feature__no">01</span>
+        <h3><span data-lang-hu>Kerékpározás</span><span data-lang-en>Cycling</span></h3>
+        <p><span data-lang-hu>A Tisza-tavat körülölelő kerékpárút végig vízközeli, családbarát útvonal.</span><span data-lang-en>The cycle path encircling Lake Tisza runs close to the water — a family-friendly route.</span></p>
+      </li>
+      <li class="lake__item reveal">
+        <span class="feature__no">02</span>
+        <h3>Hortobágy</h3>
+        <p><span data-lang-hu>A Hortobágyi Nemzeti Park programjai: világörökségi puszta, madárles és ősi magyar állatfajták.</span><span data-lang-en>Hortobágy National Park: the World Heritage puszta, birdwatching and ancient Hungarian breeds.</span></p>
+      </li>
+      <li class="lake__item reveal">
+        <span class="feature__no">03</span>
+        <h3><span data-lang-hu>Strand</span><span data-lang-en>Beach</span></h3>
+        <p><span data-lang-hu>Városi Szabadstrand <span class="lake__d">2,8 km</span> — fürdőzés, vízi sportok, csónakázás a nyári napokon.</span><span data-lang-en>City open-water beach <span class="lake__d">2.8 km</span> — swimming, watersports and boating on summer days.</span></p>
+      </li>
+      <li class="lake__item reveal">
+        <span class="feature__no">04</span>
+        <h3><span data-lang-hu>Gasztronómia</span><span data-lang-en>Food</span></h3>
+        <p><span data-lang-hu>Helyi éttermek, csárdák és cukrászdák — halászlé, tájjellegű ízek és kézműves sütemények.</span><span data-lang-en>Local restaurants, inns and patisseries — fisherman's soup, regional flavours and artisan pastries.</span></p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ AJÁNLATKÉRÉS + KAPCSOLAT ============ -->
+<section class="closing" aria-labelledby="zaro-cim">
+  <div class="closing__media"><img src="assets/img/800/terasz-este.jpg" srcset="assets/img/800/terasz-este.jpg 800w, assets/img/terasz-este.jpg 1195w" sizes="100vw" width="1195" height="896" alt="" loading="lazy" decoding="async"></div>
+  <div class="wrap closing__inner reveal">
+    <p class="eyebrow"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Enquiry</span></p>
+    <h2 id="zaro-cim"><span data-lang-hu>Kérjen ajánlatot a pihenéséhez.</span><span data-lang-en>Request a quote for your stay.</span></h2>
+    <p><span data-lang-hu>Írjon nekünk a foglalási részletekkel, és visszajelzünk az elérhető időpontokról és az ajánlatról.</span><span data-lang-en>Send us your booking details and we'll get back to you about availability and the offer.</span></p>
+    <div class="btn-row">
+      <a class="btn btn--light" href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Request a quote</span> <span class="ar" aria-hidden="true">→</span></a>
+      <a class="btn btn--outline-light" href="naptar.html"><span data-lang-hu>Szabad időpontok</span><span data-lang-en>Available dates</span> <span class="ar" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+<ul class="contact-strip" data-i18n-label="Elérhetőségek|Contact details" aria-label="Elérhetőségek">
+  <li><span class="contact-strip__k"><span data-lang-hu>Telefon</span><span data-lang-en>Phone</span></span><span class="contact-strip__v"><a href="tel:+36202589544">+36 20 258 9544</a><small><a href="tel:+36203942551">+36 20 394 2551</a></small></span></li>
+  <li><span class="contact-strip__k">E-mail</span><span class="contact-strip__v"><a href="mailto:holdudvartiszato@gmail.com">holdudvartiszato@gmail.com</a></span></li>
+  <li><span class="contact-strip__k"><span data-lang-hu>Cím</span><span data-lang-en>Address</span></span><span class="contact-strip__v">5350 Tiszafüred, Igari út 21.</span></li>
+  <li><span class="contact-strip__k"><span data-lang-hu>Megközelítés</span><span data-lang-en>Getting here</span></span><span class="contact-strip__v"><a href="https://www.google.com/maps/search/?api=1&amp;query=Tiszaf%C3%BCred%20Igari%20%C3%BAt%2021" target="_blank" rel="noopener noreferrer"><span data-lang-hu>Útvonalterv</span><span data-lang-en>Directions</span> ↗</a><small><span data-lang-hu>Ingyenes, kamerával figyelt parkolás</span><span data-lang-en>Free, camera-monitored parking</span></small></span></li>
+</ul>
+
 </main>
 
 <footer class="footer">
@@ -319,7 +334,7 @@
     <div class="footer__grid">
       <div class="footer__brand">
         <span class="brand__name">Holdudvar Vendégház</span>
-        <p style="margin-top:22px; color:rgba(239,233,220,0.8); max-width:34ch"><span data-lang-hu>Három apartmanos vidéki vendégház a Tisza-tó fővárosában, Tiszafüreden.</span><span data-lang-en>A three-apartment countryside guesthouse in Tiszafüred, the capital of Lake Tisza.</span></p>
+        <p><span data-lang-hu>Három apartmanos vidéki vendégház a Tisza-tó fővárosában, Tiszafüreden.</span><span data-lang-en>A three-apartment countryside guesthouse in Tiszafüred, the capital of Lake Tisza.</span></p>
         <a class="footer-social" href="https://www.facebook.com/holdudvarvendeghaz" target="_blank" rel="noopener noreferrer" data-i18n-label="Holdudvar a Facebookon|Holdudvar on Facebook" aria-label="Holdudvar a Facebookon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.12 5.32H17V2.14A26.11 26.11 0 0 0 14.26 2c-2.72 0-4.58 1.66-4.58 4.7v2.6H6.61v3.56h3.07V22h3.68v-9.14h3.06l.46-3.56h-3.52V7c0-1.03.28-1.73 1.76-1.73z"/></svg></a>
       </div>
       <div class="footer__col">
@@ -341,6 +356,7 @@
           <li><a href="tel:+36203942551">+36 20 394 2551</a></li>
           <li><a href="mailto:holdudvartiszato@gmail.com">holdudvartiszato@gmail.com</a></li>
           <li>5350 Tiszafüred, Igari út 21.</li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Tiszaf%C3%BCred%20Igari%20%C3%BAt%2021" target="_blank" rel="noopener noreferrer"><span data-lang-hu>Útvonalterv</span><span data-lang-en>Directions</span> ↗</a></li>
         </ul>
       </div>
     </div>

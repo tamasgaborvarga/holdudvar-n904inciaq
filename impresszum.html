@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>document.documentElement.classList.add('js')</script>
+<script>document.documentElement.classList.add('js');try{var l=localStorage.getItem('holdudvar_lang');if(l){document.documentElement.setAttribute('data-lang',l);document.documentElement.lang=l}}catch(e){}</script>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta name="theme-color" content="#0A3834">
@@ -12,19 +12,17 @@
 <meta name="robots" content="noindex, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <link rel="canonical" href="https://holdudvarvendeghaz.hu/impresszum.html">
 </head>
 <body class="inner">
 <a class="skip-link" href="#main"><span data-lang-hu>Ugrás a tartalomhoz</span><span data-lang-en>Skip to content</span></a>
 
-<nav class="nav nav--solid">
+<header class="nav nav--solid">
   <div class="nav__inner">
-    <a class="brand" href="index.html" aria-label="Holdudvar Vendégház">
-      <span class="brand__name">Holdudvar Vendégház</span>
-    </a>
-    <div class="nav__links">
+    <a class="brand" href="index.html" aria-label="Holdudvar Vendégház"><span class="brand__name">Holdudvar Vendégház</span></a>
+    <nav class="nav__links" data-i18n-label="Fő navigáció|Main navigation" aria-label="Fő navigáció">
       <a class="nav__link" href="index.html"><span data-lang-hu>Kezdőlap</span><span data-lang-en>Home</span></a>
       <a class="nav__link" href="apartmanok.html"><span data-lang-hu>Apartmanok</span><span data-lang-en>Apartments</span></a>
       <a class="nav__link" href="galeria.html"><span data-lang-hu>Galéria</span><span data-lang-en>Gallery</span></a>
@@ -32,21 +30,21 @@
       <a class="nav__link" href="naptar.html"><span data-lang-hu>Naptár</span><span data-lang-en>Calendar</span></a>
       <a class="nav__link" href="gyik.html"><span data-lang-hu>GYIK</span><span data-lang-en>FAQ</span></a>
       <a class="nav__link" href="foglalas.html"><span data-lang-hu>Kapcsolat</span><span data-lang-en>Contact</span></a>
-    </div>
+    </nav>
     <div class="nav__right">
-        <button class="lang-toggle" type="button" data-lang-toggle lang="en" aria-label="Switch to English">EN</button>
-      <a class="btn nav__cta" href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Enquire</span></a>
+      <div class="lang-switch" role="group" aria-label="Nyelv / Language"><button type="button" data-lang-btn="hu" lang="hu" aria-pressed="true" aria-label="Magyar">HU</button><span aria-hidden="true">|</span><button type="button" data-lang-btn="en" lang="en" aria-pressed="false" aria-label="English">EN</button></div>
+      <a class="btn btn--sm nav__cta" href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Enquire</span></a>
       <button class="burger" type="button" data-i18n-label="Menü|Menu" aria-label="Menü" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
     </div>
   </div>
-</nav>
+</header>
 
 <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" data-i18n-label="Menü|Menu" aria-label="Menü" aria-hidden="true">
   <div class="mobile-menu__top">
-    <span class="brand__name" style="color:var(--cream)">Holdudvar Vendégház</span>
-    <button class="mobile-menu__close" type="button" data-close data-i18n-label="Menü bezárása|Close menu" aria-label="Bezárás"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <span class="brand__name">Holdudvar Vendégház</span>
+    <button class="mobile-menu__close" type="button" data-close data-i18n-label="Menü bezárása|Close menu" aria-label="Menü bezárása"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
   </div>
-  <nav class="mobile-menu__links">
+  <nav class="mobile-menu__links" data-i18n-label="Menü|Menu" aria-label="Menü">
     <a href="index.html"><span data-lang-hu>Kezdőlap</span><span data-lang-en>Home</span></a>
     <a href="apartmanok.html"><span data-lang-hu>Apartmanok</span><span data-lang-en>Apartments</span></a>
     <a href="galeria.html"><span data-lang-hu>Galéria</span><span data-lang-en>Gallery</span></a>
@@ -55,10 +53,11 @@
     <a href="gyik.html"><span data-lang-hu>GYIK</span><span data-lang-en>FAQ</span></a>
     <a href="foglalas.html"><span data-lang-hu>Kapcsolat</span><span data-lang-en>Contact</span></a>
     <a href="hazirend.html"><span data-lang-hu>Házirend</span><span data-lang-en>House rules</span></a>
-    <a href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Enquiry</span></a>
   </nav>
-  <div class="mobile-menu__lang">
-        <button class="lang-toggle" type="button" data-lang-toggle lang="en" aria-label="Switch to English">EN</button>
+  <div class="mobile-menu__foot">
+    <a class="btn btn--gold btn--block" href="foglalas.html"><span data-lang-hu>Ajánlatkérés</span><span data-lang-en>Request a quote</span> <span class="ar" aria-hidden="true">→</span></a>
+    <p class="mobile-menu__tel"><span data-lang-hu>Telefon</span><span data-lang-en>Phone</span>: <a href="tel:+36202589544">+36 20 258 9544</a></p>
+    <div class="lang-switch" role="group" aria-label="Nyelv / Language"><button type="button" data-lang-btn="hu" lang="hu" aria-pressed="true" aria-label="Magyar">HU</button><span aria-hidden="true">|</span><button type="button" data-lang-btn="en" lang="en" aria-pressed="false" aria-label="English">EN</button></div>
   </div>
 </div>
 
@@ -68,7 +67,7 @@
   <div class="wrap">
     <div class="maxch" style="margin:0 auto">
 
-      <span class="eyebrow">Impresszum</span>
+      <p class="eyebrow"><span data-lang-hu>Jogi információk</span><span data-lang-en>Legal</span></p>
       <h1 style="margin-top:10px"><span data-lang-hu>Impresszum</span><span data-lang-en>Imprint</span></h1>
       <p class="muted" style="margin-top:10px"><span data-lang-hu>A szolgáltató és a tárhelyszolgáltató adatai.</span><span data-lang-en>Service provider and hosting details.</span></p>
 
@@ -116,7 +115,7 @@
     <div class="footer__grid">
       <div class="footer__brand">
         <span class="brand__name">Holdudvar Vendégház</span>
-        <p style="margin-top:22px; color:rgba(239,233,220,0.8); max-width:34ch"><span data-lang-hu>Három apartmanos vidéki vendégház a Tisza-tó fővárosában, Tiszafüreden.</span><span data-lang-en>A three-apartment countryside guesthouse in Tiszafüred, the capital of Lake Tisza.</span></p>
+        <p><span data-lang-hu>Három apartmanos vidéki vendégház a Tisza-tó fővárosában, Tiszafüreden.</span><span data-lang-en>A three-apartment countryside guesthouse in Tiszafüred, the capital of Lake Tisza.</span></p>
         <a class="footer-social" href="https://www.facebook.com/holdudvarvendeghaz" target="_blank" rel="noopener noreferrer" data-i18n-label="Holdudvar a Facebookon|Holdudvar on Facebook" aria-label="Holdudvar a Facebookon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.12 5.32H17V2.14A26.11 26.11 0 0 0 14.26 2c-2.72 0-4.58 1.66-4.58 4.7v2.6H6.61v3.56h3.07V22h3.68v-9.14h3.06l.46-3.56h-3.52V7c0-1.03.28-1.73 1.76-1.73z"/></svg></a>
       </div>
       <div class="footer__col">
@@ -138,6 +137,7 @@
           <li><a href="tel:+36203942551">+36 20 394 2551</a></li>
           <li><a href="mailto:holdudvartiszato@gmail.com">holdudvartiszato@gmail.com</a></li>
           <li>5350 Tiszafüred, Igari út 21.</li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Tiszaf%C3%BCred%20Igari%20%C3%BAt%2021" target="_blank" rel="noopener noreferrer"><span data-lang-hu>Útvonalterv</span><span data-lang-en>Directions</span> ↗</a></li>
         </ul>
       </div>
     </div>
